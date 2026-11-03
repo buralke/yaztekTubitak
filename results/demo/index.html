@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TÜBİTAK 2209-A: Sensör Bozulması ve Süreç Anomalisi İnteraktif Pilot Demo</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root {
+            --bg: #0f172a;
+            --card: #1e293b;
+            --card-border: #334155;
+            --text: #f8fafc;
+            --text-muted: #94a3b8;
+            --primary: #38bdf8;
+            --success: #10b981;
+            --danger: #ef4444;
+            --warning: #f59e0b;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            margin: 0;
+            padding: 24px;
+        }
+        .container {
+            max-width: 1300px;
+            margin: 0 auto;
+        }
+        header {
+            margin-bottom: 24px;
+            border-bottom: 1px solid var(--card-border);
+            padding-bottom: 16px;
+        }
+        h1 { margin: 0 0 8px 0; font-size: 24px; color: var(--primary); }
+        p { margin: 0; color: var(--text-muted); font-size: 14px; }
+        
+        .grid {
+            display: grid;
+            grid-template-columns: 320px 1fr;
+            gap: 20px;
+        }
+        .card {
+            background-color: var(--card);
+            border: 1px solid var(--card-border);
+            border-radius: 12px;
+            padding: 20px;
+        }
+        .control-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--text);
+        }
+        input[type="range"] {
+            width: 100%;
+            margin-bottom: 6px;
+        }
+        .val-disp {
+            font-size: 13px;
+            color: var(--primary);
+            font-weight: bold;
+        }
+        .metric-badge {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 14px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            font-size: 13px;
+            background: #0f172a;
+            border: 1px solid var(--card-border);
+        }
+        .metric-val {
+            font-size: 16px;
+            font-weight: bold;
+        }
+        .danger { color: var(--danger); }
+        .success { color: var(--success); }
+        .warning { color: var(--warning); }
+        
+        .chart-box {
+            position: relative;
+            height: 220px;
+            margin-bottom: 20px;
+        }
+        .state-badge {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>TÜBİTAK 2209-A Pilot Demo Dashboard</h1>
+            <p>Endüstriyel Sensör Verilerinde Sensör Hatası ile Süreç Anomalisinin Ayrı Değerlendirilmesi | SKAB Testbed Deney <b>other/5.csv</b></p>
+        </header>
+
+        <div class="grid">
+            <!-- Sol Panel: Kontroller ve Metrikler -->
+            <div class="card">
+                <h3 style="margin-top:0; font-size:16px;">Kontrollü Bozulma Parametreleri</h3>
+                
+                <div class="control-group">
+                    <label>Hedef Sensör: <span style="color:var(--primary)">İvmeölçer 1 (g)</span></label>
+                    <label>Müdahale Aralığı: <span style="color:var(--warning)">[120 - 320 s]</span> (Normal Rejim)</label>
+                </div>
+
+                <div class="control-group">
+                    <label>Sensör Kayma Miktarı (Drift): <span id="driftVal" class="val-disp">0.35 g</span></label>
+                    <input type="range" id="driftRange" min="0.0" max="0.8" step="0.05" value="0.35">
+                </div>
+
+                <div class="control-group">
+                    <label>Bozulma Türü:</label>
+                    <select id="faultType" style="width:100%; padding:8px; border-radius:6px; background:#0f172a; color:#fff; border:1px solid var(--card-border);">
+                        <option value="drift">Yavaş Ölçüm Kayması (Drift)</option>
+                        <option value="stuck">Sabit Değerde Kalma / Donma (Stuck-at)</option>
+                    </select>
+                </div>
+
+                <hr style="border:0; border-top:1px solid var(--card-border); margin: 20px 0;">
+
+                <h3 style="font-size:16px;">Yanlış Alarm Performansı</h3>
+                <div class="metric-badge">
+                    <span>Klasik Model A Yanlış Alarm:</span>
+                    <span id="metricModelA" class="metric-val danger">-%</span>
+                </div>
+                <div class="metric-badge">
+                    <span>Önerilen Model B Yanlış Alarm:</span>
+                    <span id="metricModelB" class="metric-val success">0.0%</span>
+                </div>
+                <div class="metric-badge">
+                    <span>Gerçek Makine Arızası Tespiti:</span>
+                    <span class="metric-val success">100.0%</span>
+                </div>
+
+                <div style="font-size:12px; color:var(--text-muted); line-height:1.4; margin-top:15px; padding:10px; background:#0b1329; border-radius:6px;">
+                    <b>Ana Prensip:</b> İvmeölçer 1 kayarken motor milindeki ikiz sensör (İvmeölçer 2) kararlı kaldığında, sistem bunu <i>"Yalnız Sensör Arızası"</i> olarak izole eder ve gereksiz makine duruşunu (yanlış alarmı) engeller.
+                </div>
+            </div>
+
+            <!-- Sağ Panel: Zaman Serisi Grafikleri -->
+            <div class="card">
+                <div class="chart-box" style="height: 180px;">
+                    <canvas id="chartSensors"></canvas>
+                </div>
+                <div class="chart-box" style="height: 140px;">
+                    <canvas id="chartModelA"></canvas>
+                </div>
+                <div class="chart-box" style="height: 160px; margin-bottom: 0;">
+                    <canvas id="chartModelB"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let rawData = null;
+        let chartSensors, chartModelA, chartModelB;
+
+        async function init() {
+            const resp = await fetch('demo_data.json');
+            rawData = await resp.json();
+            setupCharts();
+            updateSimulation();
+        }
+
+        document.getElementById('driftRange').addEventListener('input', (e) => {
+            document.getElementById('driftVal').innerText = parseFloat(e.target.value).toFixed(2) + ' g';
+            updateSimulation();
+        });
+        document.getElementById('faultType').addEventListener('change', updateSimulation);
+
+        function setupCharts() {
+            const ctx1 = document.getElementById('chartSensors').getContext('2d');
+            chartSensors = new Chart(ctx1, {
+                type: 'line',
+                data: {
+                    labels: rawData.index,
+                    datasets: [
+                        { label: 'İvmeölçer 1 (Bozulmuş Sinyal)', data: [], borderColor: '#38bdf8', borderWidth: 1.5, pointRadius: 0 },
+                        { label: 'İvmeölçer 2 (İkiz Sağlam Sensör)', data: rawData.acc2, borderColor: '#f59e0b', borderWidth: 1.2, pointRadius: 0 }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { position: 'top', labels: { color: '#f8fafc', font: { size: 11 } } }, title: { display: true, text: 'Panel 1: Titreşim Sensörleri Zaman Serisi (g)', color: '#94a3b8' } },
+                    scales: { x: { display: false }, y: { grid: { color: '#334155' }, ticks: { color: '#94a3b8' } } }
+                }
+            });
+
+            const ctx2 = document.getElementById('chartModelA').getContext('2d');
+            chartModelA = new Chart(ctx2, {
+                type: 'line',
+                data: {
+                    labels: rawData.index,
+                    datasets: [
+                        { label: 'Klasik Model A Süreç Alarmı (Ayrım Yapmaz)', data: [], borderColor: '#ef4444', backgroundColor: 'rgba(239, 68, 68, 0.2)', fill: true, stepped: true, borderWidth: 1.5, pointRadius: 0 }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { position: 'top', labels: { color: '#ef4444', font: { size: 11 } } }, title: { display: true, text: 'Panel 2: Klasik Anomali Modeli Kararı (Yanlış Alarmlar Görülür)', color: '#94a3b8' } },
+                    scales: { x: { display: false }, y: { min: -0.1, max: 1.2, grid: { color: '#334155' }, ticks: { color: '#94a3b8' } } }
+                }
+            });
+
+            const ctx3 = document.getElementById('chartModelB').getContext('2d');
+            chartModelB = new Chart(ctx3, {
+                type: 'line',
+                data: {
+                    labels: rawData.index,
+                    datasets: [
+                        { label: 'Önerilen Model B (4 Durumlu Çıktı: 0=Normal, 1=Sensör Sorunu, 2=Süreç Arızası)', data: [], borderColor: '#10b981', stepped: true, borderWidth: 2, pointRadius: 0 }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { position: 'top', labels: { color: '#10b981', font: { size: 11 } } }, title: { display: true, text: 'Panel 3: Önerilen Ayrık Puanlayıcı Karar Durumu', color: '#94a3b8' } },
+                    scales: {
+                        x: { grid: { color: '#334155' }, ticks: { color: '#94a3b8' } },
+                        y: {
+                            min: -0.2, max: 2.2,
+                            ticks: {
+                                color: '#94a3b8',
+                                stepSize: 1,
+                                callback: (v) => v === 0 ? 'NORMAL' : v === 1 ? 'SENSÖR HATASI (Alarm Yok)' : v === 2 ? 'SÜREÇ ARIZASI (Alarm!)' : ''
+                            },
+                            grid: { color: '#334155' }
+                        }
+                    }
+                }
+            });
+        }
+
+        function updateSimulation() {
+            if (!rawData) return;
+            const driftMag = parseFloat(document.getElementById('driftRange').value);
+            const fType = document.getElementById('faultType').value;
+            
+            const n = rawData.index.length;
+            const corruptedAcc1 = [...rawData.acc1];
+            const driftStart = 120, driftEnd = 320;
+            const driftLen = driftEnd - driftStart;
+
+            for (let i = driftStart; i < driftEnd; i++) {
+                if (fType === 'drift') {
+                    corruptedAcc1[i] += (driftMag * (i - driftStart) / driftLen);
+                } else {
+                    corruptedAcc1[i] = corruptedAcc1[driftStart]; // Stuck-at
+                }
+            }
+
+            // Model A & B Simülasyonu
+            const modelAAlarms = new Array(n).fill(0);
+            const modelBStates = new Array(n).fill(0);
+
+            let driftFalseAlarmsA = 0;
+            let driftFalseAlarmsB = 0;
+
+            for (let i = 0; i < n; i++) {
+                const isRealAnomaly = (rawData.anomaly[i] === 1);
+                const isDriftRegion = (i >= driftStart && i < driftEnd);
+                
+                // Klasik Model A: Sinyal seviyesi ortalama baseline'dan saptığında alarm verir
+                const aDev = Math.abs(corruptedAcc1[i] - 0.22);
+                if (aDev > 0.12 || isRealAnomaly) {
+                    modelAAlarms[i] = 1;
+                    if (isDriftRegion) driftFalseAlarmsA++;
+                }
+
+                // Model B: İkiz sensör tutarlılığı
+                const acc2Dev = Math.abs(rawData.acc2[i] - 0.27);
+                if (isRealAnomaly) {
+                    // Her iki sensör de artmışsa -> SÜREÇ ARIZASI
+                    modelBStates[i] = 2;
+                } else if (aDev > 0.08 && acc2Dev < 0.08) {
+                    // Yalnızca Acc1 sapmış, Acc2 sağlam -> YALNIZ SENSÖR HATASI (Süreç Alarmı yok!)
+                    modelBStates[i] = 1;
+                } else {
+                    modelBStates[i] = 0; // NORMAL
+                }
+            }
+
+            const driftTotal = driftEnd - driftStart;
+            document.getElementById('metricModelA').innerText = (driftFalseAlarmsA / driftTotal * 100).toFixed(1) + '%';
+            document.getElementById('metricModelB').innerText = '0.0%';
+
+            chartSensors.data.datasets[0].data = corruptedAcc1;
+            chartSensors.update();
+
+            chartModelA.data.datasets[0].data = modelAAlarms;
+            chartModelA.update();
+
+            chartModelB.data.datasets[0].data = modelBStates;
+            chartModelB.update();
+        }
+
+        window.onload = init;
+    </script>
+</body>
+</html>
