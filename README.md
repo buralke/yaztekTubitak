@@ -119,3 +119,4 @@ Tarayıcı üzerinden kaydırıcılar (slider) ile görsel test yapmak isterseni
 * **Süreç Anomalisi:** Makinenin veya sistemin fiziksel çalışmasındaki sapma (örn. rotor dengesizliği veya vana tıkanması).
 * **Sensör/Veri Hatası:** Ölçüm cihazı veya iletim kaynaklı bozulma (kayma, donma, gürültü, paket kaybı).
 * **Temel Prensip:** Gerçek bir makine arızasında birbirine fiziksel olarak bağlı sensörler (örn. motor milindeki iki titreşim ivmeölçeri) birlikte hareket eder. Ancak bir sensör tek başına kayarken diğeri normal kalıyorsa, sistem bunu **"Süreç Anomalisi Değil, Sensör Bozulması"** olarak ayrıştırır ve gereksiz fabrika duruş alarmlarını önler.
+
