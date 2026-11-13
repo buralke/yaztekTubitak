@@ -69,7 +69,7 @@ def update_docx():
     r3.font.name = 'Arial'
     r3.font.size = Pt(9)
     r3.font.bold = True
-    r3_val = t0.rows[3].cells[0].paragraphs[0].add_run('Kırıkkale Üniversitesi / Mühendislik ve Doğa Bilimleri Fakültesi')
+    r3_val = t0.rows[3].cells[0].paragraphs[0].add_run('Erciyes Üniversitesi / Mühendislik Fakültesi')
     r3_val.font.name = 'Arial'
     r3_val.font.size = Pt(9)
 
@@ -286,3 +286,4 @@ def update_docx():
 
 if __name__ == '__main__':
     update_docx()
+
