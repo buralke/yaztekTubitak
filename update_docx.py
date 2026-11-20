@@ -1,8 +1,7 @@
 import os
 import docx
-from docx.shared import Pt, RGBColor
-from docx.oxml import OxmlElement
-from docx.oxml.ns import qn
+from docx.shared import Pt, RGBColor, Inches
+from docx.enum.text import WD_ALIGN_PARAGRAPH
 
 def add_clean_paragraph(cell, text, bold_prefix=None, space_after=4, line_spacing=1.15):
     p = cell.add_paragraph()
@@ -84,9 +83,9 @@ def update_docx():
     cell_ozet = t1.rows[0].cells[0]
     cell_ozet.text = ''
     
-    ozet_p1 = "Endüstriyel tesislerde makinelerin çalışmasını izlemek amacıyla çok sayıda sensörden kesintisiz veri toplanıyor. Sahadan gelen bir ölçümün beklenmedik değerler alması her zaman makinede fiziksel bir arıza başladığı anlamına gelmiyor; sensörde zamanla oluşan kalibrasyon kayması, temas zayıflığı, veri kaybı ya da elektriksel gürültü de sinyali bozabiliyor. İncelenen temel anomali tespit yöntemleri gelen veriyi tek bir girdi vektörü olarak ele aldığından, ölçüm hatasını süreç arızasından açık bir mekanizmayla ayıramıyor ve bakım ekiplerine gereksiz yanlış alarm yükü bindirebiliyor."
-    ozet_p2 = "Bu araştırma, sensörün veri güvenilirliği ile makinenin fiziksel süreç durumunu ayrı koldan puanlayan hafif bir değerlendirme çerçevesinin katkısını incelemeyi amaçlıyor. Çalışmada Skoltech Anomaly Benchmark (SKAB) su sirkülasyon test standına ait çok değişkenli zaman serileri kullanılacak. Ham gözlemler değiştirilmeden; çalışma anında bellek üzerinde yavaş kayma, sinyal donması, gürültü sıçraması ve ardışık veri kaybı gibi sentetik bozulmalar uygulanacak. Sistem; korelasyonlu sensör çiftlerinin artık dinamiklerini izleyen bir güvenilirlik katmanı ile süreç durumunu puanlayan temel modelleri bir araya getirecek."
-    ozet_p3 = "Araştırma kapsamında dört durum (normal süreç ve bozulma yok, normal süreç ve bozulma var, anomalili süreç ve bozulma yok, anomalili süreç ve bozulma var) bağımsız test serilerinde sınanacak. Yanlış alarm azalması, tekil örneklerin ötesinde olay yakalama oranı, algılama gecikmesi ve karar verilemeyen durumların sıklığıyla birlikte ele alınacak. Altı aylık çalışma takvimiyle açık kodlu, veri sızıntısından arındırılmış ve sentetik bozulmalar altındaki davranış sınırları şeffafça belgelenmiş bir değerlendirme protokolü sunulması hedefleniyor."
+    ozet_p1 = "Endüstriyel tesislerde makinelerin çalışmasını izlemek amacıyla çok sayıda sensörden kesintisiz veri toplanmaktadır. Sahadan gelen bir ölçümün beklenmedik değerler alması her zaman makinede fiziksel bir arıza başladığı anlamına gelmemektedir; sensörde zamanla oluşan kalibrasyon kayması, temas zayıflığı, veri kaybı ya da elektriksel gürültü de sinyali bozabilmektedir. İncelenen temel anomali tespit yöntemleri gelen veriyi tek bir girdi vektörü olarak ele aldığından, ölçüm hatasını süreç arızasından açık bir mekanizmayla ayıramamakta ve bakım ekiplerine gereksiz yanlış alarm yükü bindirmektedir."
+    ozet_p2 = "Bu araştırma, sensörün veri güvenilirliği ile makinenin fiziksel süreç durumunu ayrı koldan puanlayan hafif bir değerlendirme çerçevesinin katkısını incelemeyi amaçlamaktadır. Çalışmada Skoltech Anomaly Benchmark (SKAB; Katser ve Kozitsin, 2020) su sirkülasyon test standına ait çok değişkenli zaman serileri kullanılacaktır. Ham gözlemler değiştirilmeden; çalışma anında bellek üzerinde yavaş kayma, sinyal donması, gürültü sıçraması ve ardışık veri kaybı gibi sentetik bozulmalar uygulanacaktır. Sistem; korelasyonlu sensör çiftlerinin artık dinamiklerini izleyen bir güvenilirlik katmanı ile süreç durumunu puanlayan temel modelleri bir araya getirecektir."
+    ozet_p3 = "Araştırma kapsamında dört durum (normal süreç ve bozulma yok, normal süreç ve bozulma var, anomalili süreç ve bozulma yok, anomalili süreç ve bozulma var) bağımsız test serilerinde sınanacaktır. Yanlış alarm azalması, tekil örneklerin ötesinde olay yakalama oranı, algılama gecikmesi ve karar verilemeyen durumların sıklığıyla birlikte ele alınacaktır. Altı aylık çalışma takvimiyle açık kodlu, veri sızıntısından arındırılmış ve sentetik bozulmalar altındaki davranış sınırları şeffafça belgelenmiş bir değerlendirme protokolü sunulması hedeflenmektedir."
     
     add_clean_paragraph(cell_ozet, ozet_p1, space_after=4)
     add_clean_paragraph(cell_ozet, ozet_p2, space_after=4)
@@ -103,10 +102,10 @@ def update_docx():
     c2 = t2.rows[0].cells[0]
     c2.text = ''
     
-    c2_p1 = "Üretim hatlarında ve enerji altyapılarında beklenmedik duruşların önüne geçebilmek adına kestirimci bakım yaklaşımları yaygınlaşıyor. Bu sistemlerde titreşim, basınç, akış ve sıcaklık sensörleri makinenin anlık durumunu sürekli izliyor. Ancak fabrika ortamı sensörler için oldukça yıpratıcıdır; sıcaklık dalgalanmaları, elektromanyetik parazitler, kirlenme veya kablo hattındaki gevşemeler zamanla ölçüm hassasiyetini düşürüyor. Bir sıcaklık ölçümünün kademeli tırmanışı gerçekten motorun aşırı ısınmasından kaynaklanabileceği gibi, sensör elemanındaki basit bir direnç kaymasından da ileri gelebiliyor. Mevcut uygulamalarda sıkça başvurulan temel çok değişkenli yöntemler—örneğin İzolasyon Ormanı veya temel mesafe ölçütleri—gelen veriyi tek bir vektör olarak işlediği için, sensördeki yerel bir kayma veya geçici donma doğrudan makine arızası alarmına dönüşebiliyor."
-    c2_p2 = "Bu durum bakım ekiplerinde alarm yorgunluğu doğuruyor ve sahadaki operatörlerin uyarılara güvenini sarsıyor. Literatürde süreç ve sensör arızalarının birbirinden ayrılması daha önce araştırılmıştır; nitekim Zhang, Luo ve Dai (2021) kimya endüstrisinde dinamik çekirdek PCA ve katkı grafikleriyle bu ayrımı sağlayan bütünleşik bir çerçeve geliştirmiştir. Son dönem çalışmalarda Türkdamar ve Öztürk (2025), TEP ve SKAB verilerinde evrişimli ağlarla süreç anomali tespitini ele almış; Sun, Fan ve Wang (2024), endüstriyel arıza teşhisinde karşıt görevlerle desteklenen ardışık meta öğrenme önermiş; Teng ve Gao (2026) ise eksik gözlem, gürültü ve kayma koşullarında nedensel artık öğrenimi ve kapılama mimarisiyle alarm yükünü incelemiştir."
-    c2_p3 = "Geniş parametreli derin öğrenme veya karmaşık manifold yöntemlerinin aksine, bu projenin amacı literatürde zaten incelenmiş olan bu ayrımı ilk kez önermek değildir. Temel odağımız; kaynak tüketimi düşük, hafif ve yorumlanabilir bir sensör güvenilirliği katmanının, kontrollü sentetik bozulmalar ve bağımsız deneyler altında yanlış alarmları ne ölçüde bastırabildiğini deneysel olarak sınamaktır. Araştırma sorumuz şudur: Fiziksel tutarlılık temelli hafif bir güvenilirlik süzgeci, gerçek süreç anomalilerini yakalama başarısını ve algılama süresini zedelemeden yanlış süreç alarmlarını ne kadar azaltabilir? Çalışma, gerçek fabrika doğrulaması iddiası taşımamakta; sentetik müdahaleler altındaki anomali tespit dayanıklılığını ölçmeyi hedeflemektedir."
-    c2_p4 = "Öneri, T.C. Cumhurbaşkanlığı Strateji ve Bütçe Başkanlığı tarafından hazırlanan On İkinci Kalkınma Planı'nın (2024–2028) imalat sanayiinde dijital dönüşüm, büyük veri analitiği ve kestirimci bakım altyapılarının geliştirilmesine yönelik politika hedefleriyle uyumludur. Aynı zamanda T.C. Sanayi ve Teknoloji Bakanlığı'nın 2030 Sanayi ve Teknoloji Stratejisi belgesinde önceliklendirilen kritik teknoloji alanları, endüstriyel yapay zekâ ve güvenilir veri işleme eksenine katkı sağlamayı amaçlamaktadır."
+    c2_p1 = "Üretim hatlarında ve enerji altyapılarında beklenmedik duruşların önüne geçebilmek adına kestirimci bakım yaklaşımları yaygınlaşmaktadır. Bu sistemlerde titreşim, basınç, akış ve sıcaklık sensörleri makinenin anlık durumunu sürekli izlemektedir. Ancak fabrika ortamı sensörler için oldukça yıpratıcıdır; sıcaklık dalgalanmaları, elektromanyetik parazitler, kirlenme veya kablo hattındaki gevşemeler zamanla ölçüm hassasiyetini düşürmektedir. Bir sıcaklık ölçümünün kademeli tırmanışı gerçekten motorun aşırı ısınmasından kaynaklanabileceği gibi, sensör elemanındaki basit bir direnç kaymasından da ileri gelebilmektedir. Mevcut uygulamalarda sıkça başvurulan temel çok değişkenli yöntemler—örneğin İzolasyon Ormanı (Liu ve ark., 2008) veya Mahalanobis mesafesi (Mahalanobis, 1936)—gelen veriyi tek bir vektör olarak işlediği için, sensördeki yerel bir kayma veya geçici donma doğrudan makine arızası alarmına dönüşebilmektedir."
+    c2_p2 = "Bu durum bakım ekiplerinde alarm yorgunluğu doğurmakta ve sahadaki operatörlerin uyarılara güvenini sarsmaktadır. Literatürde süreç ve sensör arızalarının birbirinden ayrılması daha önce araştırılmıştır; nitekim Zhang, Luo ve Dai (2021) kimya endüstrisinde dinamik çekirdek PCA ve katkı grafikleriyle bu ayrımı sağlayan bütünleşik bir çerçeve geliştirmiştir. Son dönem çalışmalarda Türkdamar ve Öztürk (2025), TEP ve SKAB (Katser ve Kozitsin, 2020) verilerinde evrişimli ağlarla süreç anomali tespitini ele almış; Sun, Fan ve Wang (2024), endüstriyel arıza teşhisinde karşıt görevlerle desteklenen ardışık meta öğrenme önermiştir. Çalışmamıza en yakın güncel literatür olan Teng ve Gao (2026) ise eksik gözlem, gürültü ve kayma koşullarında nedensel artık öğrenimi ve kapılama mimarisiyle alarm yükünü incelemiştir. Ancak Teng ve Gao (2026) öğrenilmiş derin ve parametre yoğun bir kapılama mekanizması kullanırken; bu araştırma önerisi eğitimsiz, fiziksel ikiz-sensör dinamik tutarlılığına dayalı, hesaplama maliyeti düşük ve yorumlanabilir bir güvenilirlik katmanı önermektedir. Dahası, tek bir birleşik anomali skoru yerine sensör güvenilirliği ile süreç kararını bağımsız çıktılar olarak ayrıştırmakta ve sahadaki personele sensör hatası ile süreç arızasını şeffaf biçimde raporlamaktadır."
+    c2_p3 = "Bu proje, söz konusu ayrımı ilk kez önermeyi değil; derin ve parametre yoğun yöntemlere alternatif olarak hafif ve yorumlanabilir bir güvenilirlik katmanının etkisini kontrollü sentetik bozulmalar altında sınamayı amaçlamaktadır. Temel odağımız; kaynak tüketimi düşük bir sensör güvenilirliği süzgecinin, bağımsız test serilerinde yanlış süreç alarmlarını ne ölçüde bastırabildiğini deneysel olarak ortaya koymaktır. Araştırma sorumuz şudur: Fiziksel tutarlılık temelli hafif bir güvenilirlik süzgeci, gerçek süreç anomalilerini yakalama başarısını ve algılama süresini zedelemeden yanlış süreç alarmlarını ne kadar azaltabilir? Çalışma, gerçek fabrika doğrulaması iddiası taşımamakta; sentetik müdahaleler altındaki anomali tespit dayanıklılığını ölçmeyi hedeflemektedir."
+    c2_p4 = "Öneri, T.C. Cumhurbaşkanlığı Strateji ve Bütçe Başkanlığı (2023) tarafından hazırlanan On İkinci Kalkınma Planı'nın (2024–2028) imalat sanayiinde dijital dönüşüm, büyük veri analitiği ve kestirimci bakım altyapılarının geliştirilmesine yönelik politika hedefleriyle uyumludur. Aynı zamanda T.C. Sanayi ve Teknoloji Bakanlığı (2025) tarafından yayımlanan 2030 Sanayi ve Teknoloji Stratejisi belgesinde önceliklendirilen kritik teknoloji alanları, endüstriyel yapay zekâ ve güvenilir veri işleme eksenine doğrudan katkı sağlamayı amaçlamaktadır."
 
     add_clean_paragraph(c2, c2_p1, space_after=4)
     add_clean_paragraph(c2, c2_p2, space_after=4)
@@ -141,7 +140,7 @@ def update_docx():
     c4 = t4.rows[0].cells[0]
     c4.text = ''
     
-    c4_p1 = "Araştırma, açık kaynaklı Skoltech Anomaly Benchmark (SKAB) su sirkülasyon test düzeneği verileri üzerinde deneysel olarak yürütülecektir. Test düzeneği kapalı devre su boru hattı, santrifüj pompa, elektrik motoru ve vana gruplarından oluşmakta; 8 adet endüstriyel sensörden (2 titreşim ivmeölçeri RMS, motor akımı, gerilim, pompa çıkış basıncı, motor sıcaklığı, sıvı sıcaklığı ve hacimsel akış debisi) 1 Hz nominal frekansla veri toplamaktadır."
+    c4_p1 = "Araştırma, açık kaynaklı Skoltech Anomaly Benchmark (SKAB; Katser ve Kozitsin, 2020) su sirkülasyon test düzeneği verileri üzerinde deneysel olarak yürütülecektir. Test düzeneği kapalı devre su boru hattı, santrifüj pompa, elektrik motoru ve vana gruplarından oluşmakta; 8 adet endüstriyel sensörden (2 titreşim ivmeölçeri RMS, motor akımı, gerilim, pompa çıkış basıncı, motor sıcaklığı, sıvı sıcaklığı ve hacimsel akış debisi) 1 Hz nominal frekansla veri toplamaktadır."
     c4_p2 = "Çalışmanın bağımsız değişkenleri; uygulanan sentetik bozulmanın türü (yavaş kayma, sinyal donması, gürültü sıçraması, ardışık veri kaybı), bozulmanın şiddeti (eğitim verisinin standart sapmasına oranla 1-sigma ile 5-sigma arası), müdahale süresi ve hedef sensör kanalıdır. Bağımlı değişkenler ise üretilen yanlış süreç alarmı oranı (FAR), yanlış alarm olayı/saat frekansı, örnek ve olay düzeyinde arıza yakalama oranı (Recall), F1 skoru, algılama gecikmesi (saniye) ve sistemin karar veremediği durumların oranıdır (karar kapsama oranı)."
     add_clean_paragraph(c4, c4_p1, space_after=4)
     add_clean_paragraph(c4, c4_p2, space_after=4)
@@ -150,7 +149,7 @@ def update_docx():
         ("1. Veri Bölme ve Test Verisinin Korunması: ", "Yapılan envanter incelemesinde SKAB bünyesinde toplam 46.806 satır ve 35 CSV bulunduğu; hiçbir hücrede NaN değeri yer almadığı, ancak 7 dosyada nominal 1 saniyelik periyodu aşan (2 saniyenin üzerindeki) zaman boşlukları olduğu doğrulanmıştır. Veri sızıntısını önlemek amacıyla deney bazlı sabit bölme uygulanacaktır: 'anomaly-free.csv' (9.405 satır) temel eğitim için; 'valve1' ve 'other' gruplarından seçilen 6 dosya doğrulama ve eşik belirleme için; kalan 20'yi aşkın dosya ise bağımsız test için ayrılmıştır. İlk pilotta incelenen 'other/5' ve 'valve1/1' serileri nihai test kanıtı sayılmayacaktır. Aynı ham deneyden türetilen özgün ve bozulmuş tüm kopyalar aynı veri bölümünde tutulacak; test verileri ön işleme parametrelerinin öğrenilmesinde veya eşik ayarında kesinlikle kullanılmayacaktır."),
         ("2. Kontrollü Sentetik Bozulma Protokolü: ", "Ham veriler değiştirilmeden korunacak; çalışma anında bellek üzerinde hedef sensör kanalına müdahale edilecektir. Dört bozulma türü incelenecektir: (a) Yavaş ölçüm kayması (eğitim standart sapmasının 1 ila 5 katı kademeli drift), (b) Sabit değerde kalma (stuck-at donma), (c) Anlık gürültü sıçraması (yüksek varyanslı Gauss gürültüsü), (d) Ardışık ölçüm kaybı (paket kaybını temsil eden boşluklar). Bozulmalar normal dönemlere, anomali başlangıcına ve anomali aralığına ayrı ayrı enjekte edilerek şu dört deney durumu sınanacaktır: Normal süreç ve bozulma yok; Normal süreç ve bozulma var; Anomalili süreç ve bozulma yok; Anomalili süreç ve bozulma var."),
         ("3. Sensör Güvenilirliği ve Süreç Karar Mekanizması: ", "Sistem iki kademeli kurgulanacaktır. İlk kademe, fiziksel olarak korele çalışan sensör çiftleri (örneğin motor milindeki iki ivmeölçer veya debi-basınç ilişkisi) arasındaki dinamik tutarlılığı artık (residual) analiziyle izler. Bir sensör eğitim sınırlarının dışına çıkarken ilişkili ikiz sensör normal seyrini koruyorsa 'Yalnız Sensör Bozulması' kararı üretilir. İkinci kademe olan süreç modelinde ise şüpheli kanalın tüm sistemi yanıltmasını önlemek için ilgili kanal dışlanarak güvenilir süreç kanalları üzerinden eğitilmiş alt modeller devreye alınacaktır. Karar verilemeyecek kadar yüksek veri kaybı olduğunda sistem zorla tahmin üretmeyip 'Değerlendirilemiyor' çıktısı verecektir."),
-        ("4. Karşılaştırma Hattı ve Adil Kıyaslama: ", "Üç yaklaşım aynı test verilerinde kıyaslanacaktır: (i) Tüm sensörleri tek girdi kabul eden çok değişkenli temel yöntem (Mahalanobis mesafesi ve İzolasyon Ormanı), (ii) Yalnızca referans sensörü tek başına kullanan temel model, (iii) Önerilen sensör güvenilirliği katmanlı yöntem. Böylece sağlanan iyileşmenin sensör ayrıştırma mantığından mı yoksa tekil sensör seçiminden mi kaynaklandığı adil biçimde ayrıştırılacaktır."),
+        ("4. Karşılaştırma Hattı ve Adil Kıyaslama: ", "Üç yaklaşım aynı test verilerinde kıyaslanacaktır: (i) Tüm sensörleri tek girdi kabul eden çok değişkenli temel yöntemler (Mahalanobis mesafesi [Mahalanobis, 1936] ve İzolasyon Ormanı [Liu ve ark., 2008]), (ii) Yalnızca referans sensörü tek başına kullanan temel model, (iii) Önerilen sensör güvenilirliği katmanlı yöntem. Böylece sağlanan iyileşmenin sensör ayrıştırma mantığından mı yoksa tekil sensör seçiminden mi kaynaklandığı adil biçimde ayrıştırılacaktır."),
         ("5. Ön Çalışma ve Pilot Deney Bulguları: ", "SKAB 'other/5' (rotor dengesizliği) deneyi üzerinde kural tabanlı bir başlangıç denemesi yapılmıştır. Birinci ivmeölçerin 120–319 örnek indekslerine doğrusal olarak 0–0,35 g kayma eklenmiştir. Bu bölgedeki 200 örneğin 191'inde (%95,5) temel yöntem süreç alarmı üretirken, ikinci ivmeölçerden süreç kanıtı arayan kural tabanlı başlangıç yaklaşımı aynı bölgede süreç alarmı üretmemiştir. Her iki yaklaşım, kaynak etiketi anomalili olan 410 örneğin tamamında (recall %100) alarm vermiştir. Ancak bu bulgu tek deney ve tek bozulma koşuluyla sınırlıdır; bağımsız deneylere genellenebilirlik, çoklu bozulmalar ve eşzamanlı hata koşulları proje kapsamında araştırılacaktır."),
         ("6. Değerlendirme Ölçütleri ve Olay Birleştirme: ", "Örnek bazlı metriklerin yanında, birbirini izleyen alarmlar belirli bir zaman toleransıyla tek bir alarm olayına birleştirilecek; yanlış alarm frekansı (olay/saat), olay düzeyinde arıza yakalama oranı ve algılama gecikmesi gerçek zaman damgaları farkı üzerinden saniye cinsinden hesaplanacaktır. Deneyler en az 10 farklı rastgele tohumla tekrarlanarak belirsizlik aralıklarıyla sunulacaktır.")
     ]
@@ -242,13 +241,31 @@ def update_docx():
         add_clean_paragraph(row.cells[1], txt, space_after=2, line_spacing=1.15)
 
     # -------------------------------------------------------------
-    # TABLO 9: Diğer Konular (Pilot Deney Bulguları)
+    # TABLO 9: Diğer Konular (Pilot Deney Bulguları ve Graphical Abstract)
     # -------------------------------------------------------------
     t9 = doc.tables[9]
     c9 = t9.rows[0].cells[0]
     c9.text = ''
     diger_txt = "SKAB 'other/5' (rotor dengesizliği) deneyi üzerinde kural tabanlı bir başlangıç demosu gerçekleştirilmiştir. Birinci ivmeölçerin 120–319 örnek indekslerine (başlangıçtan itibaren 126–336. saniyeler arasına) doğrusal olarak 0–0,35 g kayma eklenmiştir. Bu bölgedeki 200 örneğin 191'inde temel yöntem süreç alarmı üretirken, ikinci ivmeölçerden süreç kanıtı arayan kural tabanlı başlangıç yaklaşımı aynı bölgede süreç alarmı üretmemiştir. Her iki yaklaşım, kaynak etiketi anomalili olan 410 örneğin tamamında (600–1.028. saniyeler arası) alarm üretmiştir. Bulgular tek deney ve tek bozulma senaryosuyla sınırlı olup, bağımsız test gruplarına genellenebilirlik proje kapsamında araştırılacaktır. İlgili karşılaştırma grafiği results/demo/pilot_demo_karsilastirma.png dosyasında arşivlenmiştir."
-    add_clean_paragraph(c9, diger_txt, space_after=2, line_spacing=1.15)
+    add_clean_paragraph(c9, diger_txt, space_after=4, line_spacing=1.15)
+
+    img_path = 'results/demo/graphical_abstract.png'
+    if os.path.exists(img_path):
+        p_img = c9.add_paragraph()
+        p_img.paragraph_format.space_before = Pt(4)
+        p_img.paragraph_format.space_after = Pt(2)
+        p_img.paragraph_format.alignment = WD_ALIGN_PARAGRAPH.CENTER
+        r_img = p_img.add_run()
+        r_img.add_picture(img_path, width=Inches(5.8))
+        
+        p_cap = c9.add_paragraph()
+        p_cap.paragraph_format.space_before = Pt(2)
+        p_cap.paragraph_format.space_after = Pt(2)
+        p_cap.paragraph_format.alignment = WD_ALIGN_PARAGRAPH.CENTER
+        r_cap = p_cap.add_run("Şekil 1. Araştırma önerisinin genel konseptini, iki kademeli karar motorunu ve 4 durumlu çıktı matrisini özetleyen akış örgüsü (Graphical Abstract).")
+        r_cap.font.name = 'Arial'
+        r_cap.font.size = Pt(8.5)
+        r_cap.font.italic = True
 
     # -------------------------------------------------------------
     # EK-1: KAYNAKLAR
@@ -260,7 +277,7 @@ def update_docx():
         "4. Teng, S., & Gao, X. (2026). Causal Wavelet Residual Learning with Observation-Support Gating for Industrial Sensor Anomaly Detection. Sensors, 26(18), 5751. https://doi.org/10.3390/s26185751",
         "5. Zhang, J., Luo, W., & Dai, Y. (2021). Integrated Diagnostic Framework for Process and Sensor Faults in Chemical Industry. Sensors, 21(3), 822. https://doi.org/10.3390/s21030822",
         "6. Liu, F. T., Ting, K. M., & Zhou, Z. H. (2008). Isolation Forest. 2008 Eighth IEEE International Conference on Data Mining, 413–422. https://doi.org/10.1109/ICDM.2008.17",
-        "7. Hotelling, H. (1947). Multivariate Quality Control Illustrated by the Air Testing of Sample Bombsights. Techniques of Statistical Analysis, 111–184.",
+        "7. Mahalanobis, P. C. (1936). On the generalized distance in statistics. Proceedings of the National Institute of Sciences of India, 2(1), 49–55.",
         "8. T.C. Cumhurbaşkanlığı Strateji ve Bütçe Başkanlığı. (2023). On İkinci Kalkınma Planı (2024–2028). Ankara.",
         "9. T.C. Sanayi ve Teknoloji Bakanlığı. (2025). 2030 Sanayi ve Teknoloji Stratejisi. Ankara."
     ]
@@ -286,5 +303,3 @@ def update_docx():
 
 if __name__ == '__main__':
     update_docx()
-
-
