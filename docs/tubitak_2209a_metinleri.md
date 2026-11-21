@@ -1,8 +1,8 @@
-# TÜBİTAK 2209-A Araştırma Önerisi Metinleri (Güncellenmiş ve Doğrulanmış Sürüm)
+# TÜBİTAK 2209-A Araştırma Önerisi Metinleri (Son Revizyon)
 
-**Son Güncelleme:** 20 Kasım 2026  
-**Revizyon Notu:** `burak_yüklenecek.docx` belgesindeki geri bildirimlere göre atıf eksikleri giderildi, Hotelling (1947) yerine Mahalanobis (1936) eklendi, Teng & Gao (2026) ile olan özgün değer farkı somutlaştırıldı, zaman kipleri akademik standarda çevrildi ve hedef cümlesi düzeltildi.  
-**Yazım İlkeleri:** `prompts/rapor_prompt.md` (AI kalıplarından arındırılmış, doğal insan ritminde, somut ve dengeli anlatım)
+**Son Güncelleme:** 21 Kasım 2026  
+**Revizyon Amacı:** Marka/kurum adlarının anonimleştirilmesi, bütçe gerekçelerinin çelişkilerden arındırılması, analitik artıklık literatürünün eklenmesi, takvim aylarının netleştirilmesi ve yazım/terminoloji hatalarının düzeltilmesi.  
+**Yazım İlkeleri:** `prompts/rapor_prompt.md` (AI kalıplarından arındırılmış, somut, dengeli ve bilimsel anlatım)
 
 ---
 
@@ -28,7 +28,7 @@ Araştırma kapsamında dört durum (normal süreç ve bozulma yok, normal süre
 ## 1.1. Konunun Önemi ve Araştırma Önerisinin Bilimsel Niteliği
 Üretim hatlarında ve enerji altyapılarında beklenmedik duruşların önüne geçebilmek adına kestirimci bakım yaklaşımları yaygınlaşmaktadır. Bu sistemlerde titreşim, basınç, akış ve sıcaklık sensörleri makinenin anlık durumunu sürekli izlemektedir. Ancak fabrika ortamı sensörler için oldukça yıpratıcıdır; sıcaklık dalgalanmaları, elektromanyetik parazitler, kirlenme veya kablo hattındaki gevşemeler zamanla ölçüm hassasiyetini düşürmektedir. Bir sıcaklık ölçümünün kademeli tırmanışı gerçekten motorun aşırı ısınmasından kaynaklanabileceği gibi, sensör elemanındaki basit bir direnç kaymasından da ileri gelebilmektedir. Mevcut uygulamalarda sıkça başvurulan temel çok değişkenli yöntemler—örneğin İzolasyon Ormanı (Liu ve ark., 2008) veya Mahalanobis mesafesi (Mahalanobis, 1936)—gelen veriyi tek bir vektör olarak işlediği için, sensördeki yerel bir kayma veya geçici donma doğrudan makine arızası alarmına dönüşebilmektedir.
 
-Bu durum bakım ekiplerinde alarm yorgunluğu doğurmakta ve sahadaki operatörlerin uyarılara güvenini sarsmaktadır. Literatürde süreç ve sensör arızalarının birbirinden ayrılması daha önce araştırılmıştır; nitekim Zhang, Luo ve Dai (2021) kimya endüstrisinde dinamik çekirdek PCA ve katkı grafikleriyle bu ayrımı sağlayan bütünleşik bir çerçeve geliştirmiştir. Son dönem çalışmalarda Türkdamar ve Öztürk (2025), TEP ve SKAB (Katser ve Kozitsin, 2020) verilerinde evrişimli ağlarla süreç anomali tespitini ele almış; Sun, Fan ve Wang (2024), endüstriyel arıza teşhisinde karşıt görevlerle desteklenen ardışık meta öğrenme önermiştir. Çalışmamıza en yakın güncel literatür olan Teng ve Gao (2026) ise eksik gözlem, gürültü ve kayma koşullarında nedensel artık öğrenimi ve kapılama mimarisiyle alarm yükünü incelemiştir. Ancak Teng ve Gao (2026) öğrenilmiş derin ve parametre yoğun bir kapılama mekanizması kullanırken; bu araştırma önerisi eğitimsiz, fiziksel ikiz-sensör dinamik tutarlılığına dayalı, hesaplama maliyeti düşük ve yorumlanabilir bir güvenilirlik katmanı önermektedir. Dahası, tek bir birleşik anomali skoru yerine sensör güvenilirliği ile süreç kararını bağımsız çıktılar olarak ayrıştırmakta ve sahadaki personele sensör hatası ile süreç arızasını şeffaf biçimde raporlamaktadır.
+Bu durum bakım ekiplerinde alarm yorgunluğu doğurmakta ve sahadaki operatörlerin uyarılara güvenini sarsmaktadır. Literatürde süreç ve sensör arızalarının birbirinden ayrılması klasik hata tespit ve izolasyon (FDI) ile analitik artıklık (analytical redundancy) modellerine dayanmaktadır (Gertler, 1998; Dunia ve Qin, 1996). Nitekim Zhang, Luo ve Dai (2021) kimya endüstrisinde dinamik çekirdek PCA ve katkı grafikleriyle bu ayrımı sağlayan bütünleşik bir çerçeve geliştirmiştir. Son dönem çalışmalarda Türkdamar ve Öztürk (2025), TEP ve SKAB (Katser ve Kozitsin, 2020) verilerinde evrişimli ağlarla süreç anomali tespitini ele almış; Sun, Fan ve Wang (2024), endüstriyel arıza teşhisinde karşıt görevlerle desteklenen ardışık meta öğrenme önermiştir. Çalışmamıza en yakın güncel literatür olan Teng ve Gao (2026) ise eksik gözlem, gürültü ve kayma koşullarında nedensel artık öğrenimi ve kapılama mimarisiyle alarm yükünü incelemiştir. Ancak Teng ve Gao (2026) öğrenilmiş derin ve parametre yoğun bir kapılama mekanizması kullanırken; bu araştırma önerisi eğitimsiz, fiziksel ikiz-sensör dinamik tutarlılığına dayalı, hesaplama maliyeti düşük ve yorumlanabilir bir güvenilirlik katmanı önermektedir. Dahası, tek bir birleşik anomali skoru yerine sensör güvenilirliği ile süreç kararını bağımsız çıktılar olarak ayrıştırmakta ve sahadaki personele sensör hatası ile süreç arızasını şeffaf biçimde raporlamaktadır.
 
 Bu proje, söz konusu ayrımı ilk kez önermeyi değil; derin ve parametre yoğun yöntemlere alternatif olarak hafif ve yorumlanabilir bir güvenilirlik katmanının etkisini kontrollü sentetik bozulmalar altında sınamayı amaçlamaktadır. Temel odağımız; kaynak tüketimi düşük bir sensör güvenilirliği süzgecinin, bağımsız test serilerinde yanlış süreç alarmlarını ne ölçüde bastırabildiğini deneysel olarak ortaya koymaktır. Araştırma sorumuz şudur: Fiziksel tutarlılık temelli hafif bir güvenilirlik süzgeci, gerçek süreç anomalilerini yakalama başarısını ve algılama süresini zedelemeden yanlış süreç alarmlarını ne kadar azaltabilir? Çalışma, gerçek fabrika doğrulaması iddiası taşımamakta; sentetik müdahaleler altındaki anomali tespit dayanıklılığını ölçmeyi hedeflemektedir.
 
@@ -39,12 +39,12 @@ Bu proje, söz konusu ayrımı ilk kez önermeyi değil; derin ve parametre yoğ
 ## 1.2. Amaç ve Hedefler
 Projenin temel amacı, endüstriyel sensör ölçümlerine kontrollü olarak eklenen yavaş kayma, donma, gürültü ve veri kaybı koşullarında, hafif bir sensör güvenilirliği katmanının yanlış süreç alarmlarını azaltma, gerçek arızaları yakalama ve algılama gecikmesi üzerindeki etkisini bağımsız test serilerinde deneysel olarak ortaya koymaktır.
 
-- **Hedef 1:** SKAB veri tabanındaki 35 adet çok değişkenli CSV dosyasının envanterini tamamlamak; zaman sırası ve etiket yapısı doğrulanmış serileri dosya kimlikleri üzerinden eğitim (anomaly-free), doğrulama (valve1 ve other serilerinden 6 dosya) ve test (20'den fazla bağımsız seri) gruplarına ayırmak.
+- **Hedef 1:** SKAB veri kümesindeki 35 adet çok değişkenli CSV dosyasının envanterini tamamlamak; zaman sırası ve etiket yapısı doğrulanmış serileri dosya kimlikleri üzerinden eğitim (anomaly-free), doğrulama (valve1 ve other serilerinden 6 dosya) ve test (20'den fazla bağımsız seri) gruplarına ayırmak.
 - **Hedef 2:** Ham gözlem verilerini değiştirmeden koruyarak; çalışma anında bellek üzerinde tekil sensörlere kontrollü yavaş kayma (drift), sinyal donması (stuck-at), gürültü sıçraması ve ardışık ölçüm kaybı uygulayabilen, rastgele tohum kontrollü bir sentetik bozulma ortamı geliştirmek.
 - **Hedef 3:** Fiziksel olarak korele çalışan sensör kanalları arasındaki ilişkiyi takip eden kural ve artık temelli hafif bir sensör güvenilirlik katmanı ile şüpheli kanalları izole eden süreç değerlendirme mekanizmasını kurmak.
 - **Hedef 4:** Geleneksel tek havuzlu anomali tespit yaklaşımı ile önerilen ayrık değerlendirme modelini aynı kontrollü bozulma senaryoları altında karşılaştırarak, yanlış alarm oranındaki değişimi sayısal olarak ortaya koymak.
 - **Hedef 5:** Bağımsız test serilerinde gerçek süreç anomalisi içeren aralıklarda arıza yakalama başarısının (olay ve örnek düzeyinde recall) takip edilmesini ve eşik optimizasyonuyla dengenin korunmasını sağlamak; algılama gecikmesindeki değişimi gerçek zaman damgaları üzerinden ölçmek.
-- **Hedef 6:** Tüm veri bölme kayıtlarını, bozulma senaryolarını, model kodlarını ve karşılaştırmalı değerlendirme çıktılarını açık kaynaklı bir GitHub deposunda eksiksiz belgeleyerek araştırmacıların erişimine sunmak.
+- **Hedef 6:** Tüm veri bölme kayıt dosyalarını, bozulma senaryolarını, model kodlarını ve karşılaştırmalı değerlendirme çıktılarını açık erişimli ve sürüm kontrollü bir kod deposunda eksiksiz belgeleyerek araştırmacıların erişimine sunmak.
 
 ---
 
@@ -53,7 +53,7 @@ Araştırma, açık kaynaklı Skoltech Anomaly Benchmark (SKAB; Katser ve Kozits
 
 Çalışmanın bağımsız değişkenleri; uygulanan sentetik bozulmanın türü (yavaş kayma, sinyal donması, gürültü sıçraması, ardışık veri kaybı), bozulmanın şiddeti (eğitim verisinin standart sapmasına oranla 1-sigma ile 5-sigma arası), müdahale süresi ve hedef sensör kanalıdır. Bağımlı değişkenler ise üretilen yanlış süreç alarmı oranı (FAR), yanlış alarm olayı/saat frekansı, örnek ve olay düzeyinde arıza yakalama oranı (Recall), F1 skoru, algılama gecikmesi (saniye) ve sistemin karar veremediği durumların oranıdır (karar kapsama oranı).
 
-1. **Veri Bölme ve Test Verisinin Korunması:** Yapılan envanter incelemesinde SKAB bünyesinde toplam 46.806 satır ve 35 CSV bulunduğu; hiçbir hücrede NaN değeri yer almadığı, ancak 7 dosyada nominal 1 saniyelik periyodu aşan (2 saniyenin üzerindeki) zaman boşlukları olduğu doğrulanmıştır. Veri sızıntısını önlemek amacıyla deney bazlı sabit bölme uygulanacaktır: 'anomaly-free.csv' (9.405 satır) temel eğitim için; 'valve1' ve 'other' gruplarından seçilen 6 dosya doğrulama ve eşik belirleme için; kalan 20'yi aşkın dosya ise bağımsız test için ayrılmıştır. İlk pilotta incelenen 'other/5' ve 'valve1/1' serileri nihai test kanıtı sayılmayacaktır. Aynı ham deneyden türetilen özgün ve bozulmuş tüm kopyalar aynı veri bölümünde tutulacak; test verileri ön işleme parametrelerinin öğrenilmesinde veya eşik ayarında kesinlikle kullanılmayacaktır.
+1. **Veri Bölme ve Test Verisinin Korunması:** Yapılan envanter incelemesinde SKAB veri kümesi bünyesinde toplam 46.806 satır ve 35 CSV bulunduğu; hiçbir hücrede NaN değeri yer almadığı, ancak 7 dosyada nominal 1 saniyelik periyodu aşan (2 saniyenin üzerindeki) zaman boşlukları olduğu doğrulanmıştır. Veri sızıntısını önlemek amacıyla deney bazlı sabit bölme uygulanacaktır: 'anomaly-free.csv' (9.405 satır) temel eğitim için; 'valve1' ve 'other' gruplarından seçilen 6 dosya doğrulama ve eşik belirleme için; kalan 20'yi aşkın dosya ise bağımsız test için ayrılmıştır. İlk pilotta incelenen 'other/5' ve 'valve1/1' serileri nihai test kanıtı sayılmayacaktır. Aynı ham deneyden türetilen özgün ve bozulmuş tüm kopyalar aynı veri bölümünde tutulacak; test verileri ön işleme parametrelerinin öğrenilmesinde veya eşik ayarında kesinlikle kullanılmayacaktır.
 2. **Kontrollü Sentetik Bozulma Protokolü:** Ham veriler değiştirilmeden korunacak; çalışma anında bellek üzerinde hedef sensör kanalına müdahale edilecektir. Dört bozulma türü incelenecektir: (a) Yavaş ölçüm kayması (eğitim standart sapmasının 1 ila 5 katı kademeli drift), (b) Sabit değerde kalma (stuck-at donma), (c) Anlık gürültü sıçraması (yüksek varyanslı Gauss gürültüsü), (d) Ardışık ölçüm kaybı (paket kaybını temsil eden boşluklar). Bozulmalar normal dönemlere, anomali başlangıcına ve anomali aralığına ayrı ayrı enjekte edilerek şu dört deney durumu sınanacaktır: Normal süreç ve bozulma yok; Normal süreç ve bozulma var; Anomalili süreç ve bozulma yok; Anomalili süreç ve bozulma var.
 3. **Sensör Güvenilirliği ve Süreç Karar Mekanizması:** Sistem iki kademeli kurgulanacaktır. İlk kademe, fiziksel olarak korele çalışan sensör çiftleri (örneğin motor milindeki iki ivmeölçer veya debi-basınç ilişkisi) arasındaki dinamik tutarlılığı artık (residual) analiziyle izler. Bir sensör eğitim sınırlarının dışına çıkarken ilişkili ikiz sensör normal seyrini koruyorsa 'Yalnız Sensör Bozulması' kararı üretilir. İkinci kademe olan süreç modelinde ise şüpheli kanalın tüm sistemi yanıltmasını önlemek için ilgili kanal dışlanarak güvenilir süreç kanalları üzerinden eğitilmiş alt modeller devreye alınacaktır. Karar verilemeyecek kadar yüksek veri kaybı olduğunda sistem zorla tahmin üretmeyip 'Değerlendirilemiyor' çıktısı verecektir.
 4. **Karşılaştırma Hattı ve Adil Kıyaslama:** Üç yaklaşım aynı test verilerinde kıyaslanacaktır: (i) Tüm sensörleri tek girdi kabul eden çok değişkenli temel yöntemler (Mahalanobis mesafesi [Mahalanobis, 1936] ve İzolasyon Ormanı [Liu ve ark., 2008]), (ii) Yalnızca referans sensörü tek başına kullanan temel model, (iii) Önerilen sensör güvenilirliği katmanlı yöntem. Böylece sağlanan iyileşmenin sensör ayrıştırma mantığından mı yoksa tekil sensör seçiminden mi kaynaklandığı adil biçimde ayrıştırılacaktır.
@@ -63,12 +63,12 @@ Araştırma, açık kaynaklı Skoltech Anomaly Benchmark (SKAB; Katser ve Kozits
 ---
 
 ## 3.1. Çalışma Takvimi
-- **1. Ay:** SKAB veri tabanının envanterinin tamamlanması, dosya bazlı eğitim-doğrulama-test bölme planının sabitlenmesi ve veri yükleme modülünün kodlanması (Proje Yürütücüsü, %15)
+- **1. Ay:** SKAB veri kümesinin envanterinin tamamlanması, dosya bazlı eğitim-doğrulama-test bölme planının sabitlenmesi ve veri yükleme modülünün kodlanması (Proje Yürütücüsü, %15)
 - **2. Ay:** Kontrollü sentetik bozulma motorunun (kayma, donma, gürültü ve ardışık veri kaybı) kodlanması ve tohum kontrollü birim testlerinin yapılması (Proje Yürütücüsü, %20)
 - **3. Ay:** Temel karşılaştırma modellerinin (tek havuzlu Mahalanobis mesafesi ve İzolasyon Ormanı) kurulması ve baz başarım metriklerinin çıkarılması (Proje Yürütücüsü, %20)
 - **4. Ay:** Korelasyonlu sensör çiftlerine dayalı güvenilirlik katmanı ile şüpheli kanal dışlama mimarisinin kodlanması ve doğrulanması (Proje Yürütücüsü, %20)
 - **5. Ay:** Eşzamanlı hata senaryoları, parametrik şiddet taramaları ve zaman boşluğu içeren seriler üzerinde dayanıklılık deneylerinin yapılması (Proje Yürütücüsü, %15)
-- **6. Ay:** Bağımsız test serilerinde nihai karşılaştırmalı değerlendirmenin yapılması, açık kaynak kod havuzunun belgelenmesi ve proje sonuçlarının derlenmesi (Proje Yürütücüsü, %10)
+- **6. Ay:** Bağımsız test serilerinde nihai karşılaştırmalı değerlendirmenin yapılması, açık kaynak kod havuzunun belgelenmesi ve teknik proje sonuçlarının derlenmesi (Proje Yürütücüsü, %10)
 
 ---
 
@@ -85,33 +85,54 @@ Araştırma, açık kaynaklı Skoltech Anomaly Benchmark (SKAB; Katser ve Kozits
 ---
 
 ## 3.3. Araştırma Olanakları
-1. **Kişisel Bilgisayar ve Geliştirme Ortamı** (Intel Core i5 İşlemci, 16 GB RAM, SSD Depolama): Veri hazırlama betiklerinin koşturulması, sentetik bozulma simülasyonları, makine öğrenmesi modellerinin eğitimi, test koşuları ve grafiksel analizler.
-2. **Açık Kaynaklı Veri ve Yazılım Altyapısı** (SKAB Veri Tabanı, Python 3.10+, Pandas, NumPy, Scikit-learn, Matplotlib, Git/GitHub): Çok değişkenli zaman serisi analizi, doğrusal ve çekirdekli modellerin kodlanması, sürüm kontrolü ve tekrarlanabilir deney arşivinin tutulması.
-3. **Üniversite Kütüphanesi ve Akademik Veri Tabanı Ağları** (IEEE Xplore, ScienceDirect, Web of Science): Endüstriyel anomali tespiti, sensör güvenilirliği ve kestirimci bakım literatüründeki güncel makale ve konferans bildirilerinin temini.
+1. **Kişisel Bilgisayar Geliştirme Ortamı** (Çok çekirdekli işlemci, 16 GB sistem belleği, yerel yüksek hızlı depolama): Veri hazırlama betiklerinin koşturulması, sentetik bozulma simülasyonları, makine öğrenmesi modellerinin eğitimi, test koşuları ve grafiksel analizler.
+2. **Açık Kaynaklı Veri ve Yazılım Altyapısı** (SKAB Kıyaslama Veri Kümesi, açık kaynaklı bilimsel hesaplama ve makine öğrenmesi kütüphaneleri, sürüm kontrollü kod deposu): Çok değişkenli zaman serisi analizi, doğrusal ve çekirdekli modellerin kodlanması, sürüm kontrolü ve tekrarlanabilir deney arşivinin tutulması.
+3. **Üniversite Kütüphanesi ve Akademik Veri Tabanı Ağları** (Ulusal ve uluslararası hakemli akademik veri tabanları ile elektronik kütüphane erişim ağları): Endüstriyel anomali tespiti, sensör güvenilirliği ve kestirimci bakım literatüründeki güncel makale ve konferans bildirilerinin temini.
 
 ---
 
 ## 4. Yaygın Etki
-- **Bilimsel / Akademik Çıktılar:** Araştırma bulguları, endüstriyel veri kalitesi ve anomali tespiti alanında ulusal veya uluslararası düzeyde hakemli bir mühendislik konferansına (örneğin IEEE SIU veya benzeri organizasyonlar) bildiri olarak sunulmak üzere hazırlanacaktır. Deney protokolü, veri bölme manifestoları ve geliştirilen kodlar açık kaynaklı bir GitHub deposunda yayımlanarak araştırmacıların ve lisans öğrencilerinin erişimine açılacaktır.
-- **Ekonomik / Ticari / Sosyal Çıktılar:** Önerilen yaklaşım, kestirimci bakım yazılımlarında hatalı sensör ölçümlerinden kaynaklanan gereksiz süreç alarmlarını azaltarak bakım ekiplerinin karar güvenilirliğini destekleme potansiyeli taşımaktadır. İleride endüstriyel IoT izleme yazılımlarına entegre edilebilecek hafif bir karar destek mantığı ortaya konulacaktır.
-- **Yeni Projeler Oluşturmaya Yönelik Çıktılar:** Bu projede kurulacak sentetik bozulma ve ayrık değerlendirme altyapısı, ilerleyen aşamalarda TÜBİTAK 2209-B (Sanayiye Yönelik Lisans Araştırma Projeleri) veya TEKNOFEST yarışmalarına sunulacak gerçek zamanlı gömülü kestirimci bakım prototipleri için temel teşkil edecektir.
+- **Bilimsel / Akademik Çıktılar:** Araştırma bulguları, endüstriyel veri kalitesi ve anomali tespiti alanında ulusal veya uluslararası düzeyde hakemli bir mühendislik konferansına bildiri olarak sunulmak üzere hazırlanacaktır. Deney protokolü, veri bölme kayıt dosyaları ve geliştirilen kaynak kodlar açık erişimli ve sürüm kontrollü bir kod deposunda yayımlanarak araştırmacıların ve lisans öğrencilerinin erişimine açılacaktır.
+- **Ekonomik / Ticari / Sosyal Çıktılar:** Önerilen yaklaşım, kestirimci bakım yazılımlarında hatalı sensör ölçümlerinden kaynaklanan gereksiz süreç alarmlarını azaltarak bakım ekiplerinin karar güvenilirliğini destekleme potansiyeli taşımaktadır. İleride endüstriyel IoT izleme sistemlerine entegre edilebilecek hafif ve yorumlanabilir bir karar destek mantığı ortaya konulacaktır.
+- **Yeni Projeler Oluşturmaya Yönelik Çıktılar:** Bu projede kurulacak sentetik bozulma ve ayrık değerlendirme altyapısı, ilerleyen aşamalarda sanayiye yönelik lisans araştırma projeleri veya ulusal teknoloji ve inovasyon yarışmalarına sunulacak gerçek zamanlı gömülü kestirimci bakım prototipleri için temel teşkil edecektir.
 
 ---
 
 ## 5. Belirtmek İstediğiniz Diğer Konular
 SKAB 'other/5' (rotor dengesizliği) deneyi üzerinde kural tabanlı bir başlangıç demosu gerçekleştirilmiştir. Birinci ivmeölçerin 120–319 örnek indekslerine (başlangıçtan itibaren 126–336. saniyeler arasına) doğrusal olarak 0–0,35 g kayma eklenmiştir. Bu bölgedeki 200 örneğin 191'inde temel yöntem süreç alarmı üretirken, ikinci ivmeölçerden süreç kanıtı arayan kural tabanlı başlangıç yaklaşımı aynı bölgede süreç alarmı üretmemiştir. Her iki yaklaşım, kaynak etiketi anomalili olan 410 örneğin tamamında (600–1.028. saniyeler arası) alarm üretmiştir. Bulgular tek deney ve tek bozulma senaryosuyla sınırlı olup, bağımsız test gruplarına genellenebilirlik proje kapsamında araştırılacaktır. İlgili karşılaştırma grafiği `results/demo/pilot_demo_karsilastirma.png` dosyasında arşivlenmiştir.
 
-*(Ayrıca bu bölüme çift kademeli karar motoru ve 4 durumlu çıktı matrisini içeren `results/demo/graphical_abstract.png` akış şeması görseli yerleştirilmiştir.)*
+*(Ayrıca bu bölüme iki kademeli karar motoru ve 4 durumlu çıktı matrisini içeren `results/demo/graphical_abstract.png` akış örgüsü şeması yerleştirilmiştir.)*
 
 ---
 
-## 6. EK-1: Kaynaklar
+## 6. EKLER
+
+### Ek: Bütçe Kalemleri ve Gerekçeleri
+
+**1. Makine ve Teçhizat Gideri: Harici Taşınabilir SSD (500 GB, Yüksek Hızlı Bağlantı) - 5.000 TL**  
+Proje süresince 35 bağımsız deney serisine uygulanacak sentetik bozulma permütasyonları (4 bozulma türü x 5 şiddet seviyesi x 10 tekrarlı tohum koşuları), ara model ağırlıkları, matris çıktıları ve detaylı deney kayıtlarının (log) ana çalışma bilgisayarından bağımsız, veri kaybını önleyici harici güvenli bir yedekleme biriminde arşivlenmesi planlanmaktadır. Alınacak harici depolama birimi demirbaş niteliğinde olup, proje tamamlandığında kurum/bölüm araştırma laboratuvarı envanterine devredilecektir. Bu gider için 5.000 TL talep edilmektedir.
+
+**2. Hizmet Alımı Gideri: Altı Aylık Bulut Tabanlı Yüksek Bellekli Hesaplama Hizmeti - 4.961 TL**  
+Projenin altı aylık çalışma süresince, 35 veri dosyasında 10 farklı rastgele tohumla yürütülecek Monte Carlo deneylerinin, çok değişkenli artık analizlerinin, çekirdekli doğrusal olmayan model optimizasyonlarının ve parametrik şiddet taramalarının yerel geliştirme bilgisayarını kilitlemeden, arka planda uzun süreli toplu iş parçacıklarıyla (batch processing) kesintisiz koşturulabilmesi amacıyla bulut tabanlı yüksek bellekli hesaplama hizmeti kullanımı planlanmaktadır. Yüksek bellekli sanal makine altyapısı, çoklu bozulma senaryolarının eşzamanlı çalıştırılmasını sağlayacaktır. İlgili bulut hizmetinin aylık abonelik bedeli vergiler dahil 826,80 TL olup, altı aylık toplam tutar 4.960,80 TL olarak hesaplanmıştır. Başvuru sistemine tam sayı girildiğinden 4.961 TL talep edilmektedir.
+
+**3. Diğer Giderler:**  
+Sarf malzemesi ve ulaşım giderleri için destek talep edilmemektedir.
+
+**Toplam Talep Edilen Destek:** 9.961 TL
+
+### Ek: Etik Kurul Muafiyet Açıklaması
+Araştırma kapsamında yararlanılan akademik kaynaklar metin içi atıflarla eşleştirilerek EK-1 Kaynaklar bölümünde listelenmiştir. Çalışmada açık kaynaklı laboratuvar verileri kullanılacağından insan veya hayvan katılımcı içermemekte olup, etik kurul onay belgesi veya özel izin gerektiren bir ek bulunmamaktadır.
+
+---
+
+## 7. EK-1: Kaynaklar
 1. Katser, I. D., & Kozitsin, V. O. (2020). Skoltech Anomaly Benchmark (SKAB). Kaggle. https://doi.org/10.34740/KAGGLE/DSV/1693952
-2. Türkdamar, M. U., & Öztürk, C. (2025). Anomaly Detection on Industrial Processes with Convolutional Neural Networks. CAIAC 2025 Bildiriler Kitabı, 29.
+2. Türkdamar, M. U., & Öztürk, C. (2025). Anomaly Detection on Industrial Processes with Convolutional Neural Networks. International Cumhuriyet Artificial Intelligence Conference (CAIAC 2025) Bildiriler Kitabı, Sivas, 29.
 3. Sun, D., Fan, Y., & Wang, G. (2024). Enhancing Fault Diagnosis in Industrial Processes through Adversarial Task Augmented Sequential Meta-Learning. Applied Sciences, 14(11), 4433. https://doi.org/10.3390/app14114433
 4. Teng, S., & Gao, X. (2026). Causal Wavelet Residual Learning with Observation-Support Gating for Industrial Sensor Anomaly Detection. Sensors, 26(18), 5751. https://doi.org/10.3390/s26185751
 5. Zhang, J., Luo, W., & Dai, Y. (2021). Integrated Diagnostic Framework for Process and Sensor Faults in Chemical Industry. Sensors, 21(3), 822. https://doi.org/10.3390/s21030822
 6. Liu, F. T., Ting, K. M., & Zhou, Z. H. (2008). Isolation Forest. 2008 Eighth IEEE International Conference on Data Mining, 413–422. https://doi.org/10.1109/ICDM.2008.17
 7. Mahalanobis, P. C. (1936). On the generalized distance in statistics. Proceedings of the National Institute of Sciences of India, 2(1), 49–55.
-8. T.C. Cumhurbaşkanlığı Strateji ve Bütçe Başkanlığı. (2023). On İkinci Kalkınma Planı (2024–2028). Ankara.
-9. T.C. Sanayi ve Teknoloji Bakanlığı. (2025). 2030 Sanayi ve Teknoloji Stratejisi. Ankara.
+8. Dunia, R., & Qin, S. J. (1996). Subspace approach to multidimensional fault identification and reconstruction. AIChE Journal, 42(8), 2308–2320. https://doi.org/10.1002/aic.690420816
+9. T.C. Cumhurbaşkanlığı Strateji ve Bütçe Başkanlığı. (2023). On İkinci Kalkınma Planı (2024–2028). Ankara.
+10. T.C. Sanayi ve Teknoloji Bakanlığı. (2025). 2030 Sanayi ve Teknoloji Stratejisi. Ankara.
